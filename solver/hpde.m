@@ -1,4 +1,6 @@
 function sol = hpde(sol,howfar,timestep)
+% Author: Lawrence F. Shampine, lfshampine@aol.com
+% Documentation can be found at http://faculty.smu.edu/shampine/hpde.pdf. 
 % An initial-boundary value problem for a first order system of hyperbolic 
 % PDEs and how it is to be solved are defined in SETUP and an initial SOL
 % is formed. At each call to HPDE, the input SOL contains fields
