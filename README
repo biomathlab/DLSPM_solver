@@ -1,4 +1,4 @@
-Code repository for the paper "On Analytical and Numerical Approaches to Division and Label Structured Population Models"
+Code repository for the paper "On Analytical and Numerical Approaches to Division and Label Structured Population Models".
 
 structured_population_model_log_flux.m - This matlab script compares Lax-Wendroff (LxW) to Recursive Numerical Integration (RNI) for solving a structured population model system of PDEs.
 
