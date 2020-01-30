@@ -1,3 +1,4 @@
+% % Author: Fabian Santiago, fsantiago3@ucmerced.edu
 % SCRIPT: structured_population_model_log_flux.m
 % % This script compares Lax-Wendroff (LxW) to Recursive Numerical 
 % % Integration (RNI) for solving a structured population model system of 
