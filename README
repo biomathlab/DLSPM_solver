@@ -2,4 +2,4 @@ Code repository for the paper "On Analytical and Numerical Approaches to Divisio
 
 structured_population_model_log_flux.m - This matlab script compares Lax-Wendroff (LxW) to Recursive Numerical Integration (RNI) for solving a structured population model system of PDEs.
 
-solver/ - This folder contains code for solving an initial-boundary value problem for a first order system of hyperbolic PDEs. Documentation can be found at http://faculty.smu.edu/shampine/hpde.pdf. 
+solver/ - This folder contains code for solving an initial-boundary value problem for a first order system of hyperbolic PDEs.
