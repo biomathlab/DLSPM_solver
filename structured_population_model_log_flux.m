@@ -31,7 +31,7 @@ close all
 
 % Add the hyperbolic PDE solver to the search space, and use Lax-Wendroff
 % for numerical integration
-addpath('../solver/')
+addpath('solver/')
 method = 'LxW';
 
 % Define constant global parameter values
@@ -86,11 +86,14 @@ for T = 1:4
     % solutions for plotting 
     MaxY1 = max([sol1.u(:);sol2.u(:)]); minY1 = min([sol1.u(:);sol2.u(:)]);
 
-    % Load RNI PDE Yi(t,a)
+    % Solve the DLSPM using RNI for generation i=0, at time T, over the
+    % constituent values a_vec1
     Y_tmp = Y_lgwt(0,NaN,T,a_vec1);
     Y_RNI = [Y_tmp; zeros(7,numel(a_vec1))];
     plot(a_vec1,Y_tmp,'r-','LineWidth',2.5);
     
+    % Solve the DLSPM using RNI for generation i, at time T, over the
+    % constituent values a_vec1
     for i = 1:7
        Y_tmp = Y_lgwt(i,GQ_pts(T,i),T,a_vec1);
        h3 = plot(a_vec1,Y_tmp,'r-','LineWidth',2.5);
@@ -111,6 +114,7 @@ for T = 1:4
     grid on    
     hold off
 
+    % Plot the error between the RNI solution and each of the LxW solutions
     subplot(3,2,5:6)
     Error_LxW1 = (sum(Y_RNI)-sum(sol1.u))/max(Y_RNI(:));
     Error_LxW2 = (sum(Y_RNI)-sum(sol2.u(:,1:10:end)))/max(Y_RNI(:));
@@ -120,6 +124,8 @@ for T = 1:4
     
     plot(a_vec1,Error_LxW1,'k-','LineWidth',2); hold on
     plot(a_vec1,Error_LxW2,'r-','LineWidth',2); hold off
+
+    %%%%%%%%%%%%%%%%%%%%%%%%%% Plotting Options %%%%%%%%%%%%%%%%%%%%%%%%%%%
     ylim([-1.5 1.5])
     
     xlabel('Concentration of Intracellular Constituents $(a)$','Interpreter','latex','FontSize',20); 
@@ -192,10 +198,9 @@ function Y_out = Y_lgwt(i,P,tf,a_vec)
     else
         [T,W] = lgwt(P,0,tf);
         INTGRND = zeros(P,numel(a_vec));
-        for i = 1:P
-            INTGRND(i,:) = MuS(T(i),S(tf,a_vec)).*Y_lgwt(i-1,P,T(i),gam*A(T(i),S(tf,a_vec)));
+        for n = 1:P
+            INTGRND(n,:) = MuS(T(n),S(tf,a_vec)).*Y_lgwt(i-1,P,T(n),gam*A(T(n),S(tf,a_vec)));
         end
         Y_out = 2*gam*alp./MuS(tf,S(tf,a_vec)).*sum(W.*INTGRND);
     end
-    
 end
