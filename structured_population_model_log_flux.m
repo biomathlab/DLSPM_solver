@@ -7,13 +7,13 @@
 % % Parameters:
 % % alp - cell division rate
 % % bet - cell death rate
-% % L - constituent replication rate
+% % lam - constituent replication rate
 % % K - constituent carrying capacity
 % % 1/gam - division of constituent among resulting daughter cells 
 % % 
 % % Variables:
 % % a(t)    - amount of intracellular constituent at time t
-% % da/dt   - intracellular constituent dynamics [ L*a*(1-a/K) ] logistic
+% % da/dt   - intracellular constituent dynamics [ lam*a*(1-a/K) ] logistic
 % % Yi(t,a) - distribution of intracellular constituents at time t, 
 % %           for generation i.   
 % % U(a)    - initial distribution of intracellular constituents
@@ -148,8 +148,8 @@ end
 %%%%%%%%              HYPERBOLIC PDE SOLVER FUNCTIONS              %%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 function Flx = FLUX(t,y,N)
-    global L K
-    Flx = -L.*y.*(1-y/K).*N;
+    global lam K
+    Flx = -lam.*y.*(1-y/K).*N;
 end
 
 function Src = SOURCE(t,y,N)
@@ -167,18 +167,18 @@ end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Characteristics
 function res = S(t,a)
-    global L K
-    res =  K.*a./(a-a.*exp(L*t)+K.*exp(L.*t));
+    global lam K
+    res =  K.*a./(a-a.*exp(lam*t)+K.*exp(lam.*t));
 end
 
 function res = A(t,s)
-    global L K
-    res = K.*s.*exp(L*t)./(K-s+s.*exp(L.*t));
+    global lam K
+    res = K.*s.*exp(lam*t)./(K-s+s.*exp(lam.*t));
 end
 
 function res = MuS(t,s)
-    global alp bet L K
-    res =  (K./(K+s.*(exp(L.*t)-1))).^2.*exp((alp+bet+L).*t);
+    global alp bet lam K
+    res =  (K./(K+s.*(exp(lam.*t)-1))).^2.*exp((alp+bet+lam).*t);
 end
 
 function res = MuA(t,y_vec)
